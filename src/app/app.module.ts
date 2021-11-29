@@ -14,6 +14,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LocalStorageService } from './services/local-storage.service';
 
 
 export function loadTranslator(http: HttpClient){
@@ -44,9 +45,11 @@ export function loadTranslator(http: HttpClient){
       }
     })
   ],
-  providers: [{ provide: RouteReuseStrategy, 
+  providers: [
+    { provide: RouteReuseStrategy, 
     useClass: IonicRouteStrategy,
-   }
+    },
+    LocalStorageService
   ],
   bootstrap: [AppComponent],
 })
