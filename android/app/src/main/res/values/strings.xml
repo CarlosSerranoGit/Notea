@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Notea</string>
     <string name="title_activity_main">Notea</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">com.pcserrano.Notea</string>
+    <string name="custom_url_scheme">com.pcserrano.Notea</string>
+    <string name="server_client_id">529718212357-k31n0m35ei3r337oq67f9c4cc0eugebn.apps.googleusercontent.com</string>
+
 </resources>

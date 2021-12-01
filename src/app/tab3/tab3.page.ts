@@ -15,15 +15,10 @@ export class Tab3Page {
 
   constructor(private traductor:TranslateService,
     private storage:LocalStorageService) {
-    /*traductor.setDefaultLang("en");
-    traductor.use("es");
-    traductor.get("TAKE A PICTURE").toPromise().then(data=>{
-      console.log(data);
-    })*/
 
   }
 
-  ionViewDidEnter(){
+  async ionViewDidEnter(){
     const lang=this.traductor.getDefaultLang();
     if(lang=='es'){
       this.mitoogle.checked=false;

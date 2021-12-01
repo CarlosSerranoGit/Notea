@@ -1,6 +1,16 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "com.pcserrano.Notea",
 	"appName": "Notea",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"GoogleAuth": {
+			"scopes": [
+				"profile",
+				"email"
+			],
+			"serverClientId": "529718212357-k31n0m35ei3r337oq67f9c4cc0eugebn.apps.googleusercontent.com",
+			"forceCodeForRefreshToken": true
+		}
+	}
 }
