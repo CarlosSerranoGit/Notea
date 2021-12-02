@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonInfiniteScroll, LoadingController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Note } from '../model/Note';
 import { NoteService } from '../services/note.service';
@@ -10,6 +10,8 @@ import { NoteService } from '../services/note.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  @ViewChild(IonInfiniteScroll) infinite:IonInfiniteScroll;
+
   public notas:Note[]=[];
   private miLoading:HTMLIonLoadingElement;
 
@@ -33,12 +35,15 @@ export class Tab1Page {
   }
 
   public async cargaNotas(event?){
+    if(this.infinite){
+      this.infinite.disabled=false;
+    }
     if(!event){
       await this.presentLoading();
     }
     this.notas=[];
     try{
-      this.notas=await this.ns.getNotes().toPromise();
+      this.notas=await this.ns.getNotesByPage('algo').toPromise();
     }catch(err){
       console.error(err);
       await this.presentToast("Error cargando datos","danger");
@@ -51,7 +56,15 @@ export class Tab1Page {
     }
   }
 
-
+   public async cargaInfinita($event){
+    console.log("CARGAND");
+    let nuevasNotas=await this.ns.getNotesByPage().toPromise();
+    if(nuevasNotas.length<10){
+      $event.target.disabled=true;
+    }
+    this.notas=this.notas.concat(nuevasNotas);
+    $event.target.complete();
+  }
   async presentLoading() {
     this.miLoading = await this.loading.create({
       message: ''
