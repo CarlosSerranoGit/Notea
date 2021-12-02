@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from './services/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
@@ -7,10 +8,11 @@ import { LocalStorageService } from './services/local-storage.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private langsAvailable=['es','en'];
   constructor(private traductor:TranslateService,
-    private storage:LocalStorageService) {
+    private storage:LocalStorageService,
+    private authS:AuthService) {
     
     (async() =>{
       let lang= await storage.getItem("lang");
@@ -28,5 +30,8 @@ export class AppComponent {
     })();
 
     
+  }
+  async ngOnInit() {
+    await this.authS.loadSession();
   }
 }
