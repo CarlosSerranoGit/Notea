@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonInfiniteScroll, LoadingController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Note } from '../model/Note';
+import { AuthService } from '../services/auth.service';
 import { NoteService } from '../services/note.service';
 
 @Component({
@@ -17,7 +19,9 @@ export class Tab1Page {
 
   constructor(private ns:NoteService,
     private loading:LoadingController,
-    private toast:ToastController) {}
+    private toast:ToastController,
+    private authS:AuthService,
+    private router:Router) {}
 
   async ionViewDidEnter(){
     await this.cargaNotas();
@@ -55,7 +59,10 @@ export class Tab1Page {
       }
     }
   }
-
+  public async logout(){
+    await this.authS.logout();
+    this.router.navigate(['']);
+  }
    public async cargaInfinita($event){
     console.log("CARGAND");
     let nuevasNotas=await this.ns.getNotesByPage().toPromise();

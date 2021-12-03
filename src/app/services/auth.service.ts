@@ -19,9 +19,9 @@ export class AuthService {
 
   constructor(private storage:LocalStorageService,
     private platform:Platform) {
-    this.isAndroid=platform.is("android");
-    if(!this.isAndroid)
-      GoogleAuth.init(); //lee la config clientid del meta de index.html
+    //this.isAndroid=platform.is("android");
+    //if(!this.isAndroid)
+     // GoogleAuth.init(); //ojo, error aquí, debe estar platform ready -> lee la config clientid del meta de index.html
    }
   public test(){
     //SecureStoragePlugin.set();

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './services/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
@@ -10,10 +12,11 @@ import { LocalStorageService } from './services/local-storage.service';
 })
 export class AppComponent implements OnInit {
   private langsAvailable=['es','en'];
+  private isAndroid=false;
   constructor(private traductor:TranslateService,
     private storage:LocalStorageService,
-    private authS:AuthService) {
-    
+    private authS:AuthService,private platform:Platform) {
+    this.isAndroid=this.platform.is("android");
     (async() =>{
       let lang= await storage.getItem("lang");
       if(lang==null){
@@ -32,6 +35,11 @@ export class AppComponent implements OnInit {
     
   }
   async ngOnInit() {
-    await this.authS.loadSession();
+    this.platform.ready().then(async ()=>{
+      this.isAndroid=this.platform.is("android");
+      if(!this.isAndroid)
+        await GoogleAuth.init();
+      await this.authS.loadSession();
+    })
   }
 }

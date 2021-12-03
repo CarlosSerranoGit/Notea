@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { User } from '@codetrix-studio/capacitor-google-auth/dist/esm/user';
 import { Platform } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
@@ -27,6 +28,8 @@ export class LoginPage implements OnInit {
     if(this.authS.isLogged){
       this.router.navigate(['private/tabs/tab1']);
     }
+
+   
   }
   public async signin() {
     try {
